@@ -15,7 +15,7 @@ class BookList extends React.Component {
         break;
       }
       case 'addBook': {
-        element = <AddBookForm switchRoute={this.switchRoute} />;
+        element = <AddBookForm />;
         break;
       }
       case 'editBook': {

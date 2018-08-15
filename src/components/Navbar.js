@@ -1,10 +1,11 @@
 import React from 'react';
 import { Consumer } from '../context';
+import { CHANGE_ROUTE } from '../types';
 
 class Navbar extends React.Component {
   handleRoute = (dispatch, route) => {
     dispatch({
-      type: 'CHANGE_ROUTE',
+      type: CHANGE_ROUTE,
       payload: { route: route }
     });
   };

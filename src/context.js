@@ -1,12 +1,13 @@
 // context.js
 import React from 'react';
 import uuid from 'uuid';
+import { ADD_BOOK, DELETE_BOOK, CHANGE_ROUTE, UPDATE_BOOK } from './types';
 
 const Context = React.createContext();
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'ADD_BOOK':
+    case ADD_BOOK:
       return {
         ...state,
         bookArray: [action.payload, ...state.bookArray]
@@ -18,20 +19,20 @@ const reducer = (state, action) => {
         The rest of the items will be the rest of the bookArray, using the spread operator to get them all individually
       */
 
-    case 'DELETE_BOOK': {
+    case DELETE_BOOK: {
       return {
         ...state,
         bookArray: state.bookArray.filter(book => book.id !== action.payload.id)
       };
     }
-    case 'CHANGE_ROUTE': {
+    case CHANGE_ROUTE: {
       return {
         ...state,
         route: action.payload.route,
         currentBook: action.payload.book ? action.payload.book : null
       };
     }
-    case 'UPDATE_BOOK': {
+    case UPDATE_BOOK: {
       return {
         ...state,
         bookArray: state.bookArray.map(

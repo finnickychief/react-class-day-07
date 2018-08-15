@@ -1,16 +1,17 @@
 import React from 'react';
+import { DELETE_BOOK, CHANGE_ROUTE } from '../types';
 
 class Book extends React.Component {
   deleteHandler = dispatch => {
     dispatch({
-      type: 'DELETE_BOOK',
+      type: DELETE_BOOK,
       payload: this.props.book
     });
   };
 
   editHandler = dispatch => {
     dispatch({
-      type: 'CHANGE_ROUTE',
+      type: CHANGE_ROUTE,
       payload: {
         route: 'editBook',
         book: this.props.book

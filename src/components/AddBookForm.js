@@ -3,6 +3,7 @@ import uuid from 'uuid';
 import PropTypes from 'prop-types';
 
 import { Consumer } from '../context';
+import { CHANGE_ROUTE, ADD_BOOK } from '../types';
 
 class AddBookForm extends Component {
   constructor(props) {
@@ -35,12 +36,12 @@ class AddBookForm extends Component {
     // dispatch(action);
 
     dispatch({
-      type: 'ADD_BOOK',
+      type: ADD_BOOK,
       payload: newBook
     });
 
     dispatch({
-      type: 'CHANGE_ROUTE',
+      type: CHANGE_ROUTE,
       payload: { route: route }
     });
   };

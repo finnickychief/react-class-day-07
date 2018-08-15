@@ -1,42 +1,16 @@
 import React from 'react';
-import uuid from 'uuid';
 
 import Books from './Books';
 import AddBookForm from './AddBookForm';
 import Navbar from './Navbar';
 import EditBookForm from './EditBookForm';
+import { Consumer } from '../context';
 
 class BookList extends React.Component {
-  constructor() {
-    super();
-    // Each book will need the following properties:
-    // Title, Description, Author, Price
+  constructor(props) {
+    super(props);
     this.state = {
-      bookArray: [
-        {
-          id: uuid(),
-          title: 'Harry Potter',
-          description: 'Wizard School stuff',
-          author: 'JK Rowling',
-          price: '14.99'
-        },
-        {
-          id: uuid(),
-          title: 'Name of the Wind',
-          description: 'Edgy Wizard school stuff',
-          author: 'Patrick Rothfuss',
-          price: '12.50'
-        },
-        {
-          id: uuid(),
-          title: 'Wheel of Time',
-          description: 'A few High fantasy novels',
-          author: 'Robert Jordan',
-          price: '19.99'
-        }
-      ],
-      route: 'viewBooks',
-      currentBook: null
+      route: 'viewBooks'
     };
   }
 
@@ -100,11 +74,19 @@ class BookList extends React.Component {
     switch (this.state.route) {
       case 'viewBooks': {
         element = (
-          <Books
-            bookArray={this.state.bookArray}
-            editBook={this.editBook}
-            deleteBook={this.deleteBook}
-          />
+          <Consumer>
+            {store => {
+              // Write the consumer first, then cut and paste the elements into it.
+              const { bookArray } = store; // Destructure bookArray if desired
+              return (
+                <Books
+                  bookArray={store.bookArray}
+                  editBook={this.editBook}
+                  deleteBook={this.deleteBook}
+                />
+              );
+            }}
+          </Consumer>
         );
         break;
       }

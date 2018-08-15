@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { sayHi } from './types';
+
+sayHi();
 
 import App from './App';
 

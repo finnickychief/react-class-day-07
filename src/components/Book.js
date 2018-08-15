@@ -1,8 +1,25 @@
 import React from 'react';
 
 class Book extends React.Component {
+  deleteHandler = dispatch => {
+    dispatch({
+      type: 'DELETE_BOOK',
+      payload: this.props.book
+    });
+  };
+
+  editHandler = dispatch => {
+    dispatch({
+      type: 'CHANGE_ROUTE',
+      payload: {
+        route: 'editBook',
+        book: this.props.book
+      }
+    });
+  };
+
   render() {
-    const { book } = this.props;
+    const { book, dispatch } = this.props;
     return (
       <div className="card">
         <div className="card-body">
@@ -12,13 +29,13 @@ class Book extends React.Component {
           <div className="card-footer">{book.price}</div>
           <button
             className="btn btn-warning"
-            onClick={this.props.editBook.bind(this, book.id)}
+            onClick={this.editHandler.bind(this, dispatch)}
           >
             Edit
           </button>
           <button
             className="btn btn-danger"
-            onClick={this.props.deleteBook.bind(this, book.id)}
+            onClick={this.deleteHandler.bind(this, dispatch)}
           >
             Delete
           </button>

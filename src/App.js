@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 
 import BookList from './components/BookList';
-import { Provider } from './context';
+import { Provider, Consumer } from './context';
 
 export default class App extends Component {
   render() {
     return (
       <Provider>
-        <BookList />
+        <Consumer>
+          {store => {
+            const { dispatch, route } = store;
+            return <BookList route={route} dispatch={dispatch} />;
+          }}
+        </Consumer>
       </Provider>
     );
   }

@@ -18,6 +18,30 @@ const reducer = (state, action) => {
         The rest of the items will be the rest of the bookArray, using the spread operator to get them all individually
       */
 
+    case 'DELETE_BOOK': {
+      return {
+        ...state,
+        bookArray: state.bookArray.filter(book => book.id !== action.payload.id)
+      };
+    }
+    case 'CHANGE_ROUTE': {
+      return {
+        ...state,
+        route: action.payload.route,
+        currentBook: action.payload.book ? action.payload.book : null
+      };
+    }
+    case 'UPDATE_BOOK': {
+      return {
+        ...state,
+        bookArray: state.bookArray.map(
+          book =>
+            book.id === action.payload.book.id ? action.payload.book : book
+        ),
+        route: action.payload.route,
+        currentBook: null
+      };
+    }
     default:
       return state;
   }
@@ -49,6 +73,7 @@ export class Provider extends React.Component {
       }
     ],
     currentBook: null,
+    route: 'viewBooks',
 
     dispatch: action => this.setState(state => reducer(state, action))
   };

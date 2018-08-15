@@ -17,7 +17,7 @@ class EditBookForm extends React.Component {
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
-  editBookHandler = e => {
+  editBookHandler = (dispatch, e) => {
     e.preventDefault(); // Prevent form from submitting and refreshing the page.
 
     const { id, title, author, description, price } = this.state;
@@ -30,14 +30,19 @@ class EditBookForm extends React.Component {
       price
     };
 
-    this.props.onSubmit(updatedBook);
-    this.props.switchRoute('viewBooks'); // Reroute back to viewBooks page
+    dispatch({
+      type: 'UPDATE_BOOK',
+      payload: {
+        book: updatedBook,
+        route: 'viewBooks'
+      }
+    });
   };
 
   render() {
     return (
       <div className="container mx-auto w-50">
-        <form onSubmit={this.editBookHandler.bind(this)}>
+        <form onSubmit={this.editBookHandler.bind(this, this.props.dispatch)}>
           <div className="form-group">
             <label>Title</label>
             <input
@@ -81,14 +86,9 @@ class EditBookForm extends React.Component {
             Edit Book
           </button>
         </form>
-        <Book />
       </div>
     );
   }
 }
-
-EditBookForm.propTypes = {
-  switchRoute: PropTypes.func.isRequired
-};
 
 export default EditBookForm;

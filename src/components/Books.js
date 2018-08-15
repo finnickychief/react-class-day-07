@@ -1,5 +1,6 @@
 import React from 'react';
 import Book from './Book';
+import { Consumer } from '../context';
 
 export default props => {
   const divStyle = {
@@ -9,15 +10,18 @@ export default props => {
     padding: '10px'
   }; // Alternate way to do styling in JS
   return (
-    <div className="grid-container" style={divStyle}>
-      {props.bookArray.map((book, index) => (
-        <Book
-          key={`book-${index}`}
-          book={book}
-          editBook={props.editBook}
-          deleteBook={props.deleteBook}
-        />
-      ))}
-    </div>
+    <Consumer>
+      {store => {
+        const { dispatch } = store;
+
+        return (
+          <div className="grid-container" style={divStyle}>
+            {store.bookArray.map((book, index) => (
+              <Book key={`book-${index}`} book={book} dispatch={dispatch} />
+            ))}
+          </div>
+        );
+      }}
+    </Consumer>
   );
 };

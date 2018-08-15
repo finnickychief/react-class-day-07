@@ -18,7 +18,7 @@ class AddBookForm extends Component {
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
-  addBookHandler = (dispatch, e) => {
+  addBookHandler = (dispatch, route, e) => {
     e.preventDefault(); // Prevent form from submitting and refreshing the page.
 
     const { title, author, description, price } = this.state;
@@ -39,7 +39,10 @@ class AddBookForm extends Component {
       payload: newBook
     });
 
-    this.props.switchRoute('viewBooks'); // Reroute back to viewBooks page
+    dispatch({
+      type: 'CHANGE_ROUTE',
+      payload: { route: route }
+    });
   };
 
   render() {
@@ -49,7 +52,9 @@ class AddBookForm extends Component {
           const { dispatch } = store;
           return (
             <div className="container mx-auto w-50">
-              <form onSubmit={this.addBookHandler.bind(this, dispatch)}>
+              <form
+                onSubmit={this.addBookHandler.bind(this, dispatch, 'viewBooks')}
+              >
                 <div className="form-group">
                   <label>Title</label>
                   <input
@@ -107,7 +112,6 @@ class AddBookForm extends Component {
 
 // Before the export
 AddBookForm.propTypes = {
-  switchRoute: PropTypes.func.isRequired,
   style: PropTypes.object
 };
 

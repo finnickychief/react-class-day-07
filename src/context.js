@@ -4,6 +4,25 @@ import uuid from 'uuid';
 
 const Context = React.createContext();
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD_BOOK':
+      return {
+        ...state,
+        bookArray: [action.payload, ...state.bookArray]
+      };
+    // [action.payload, ...state.bookArray]
+    /*
+        Creates a new array using the []
+        The first item will be our payload
+        The rest of the items will be the rest of the bookArray, using the spread operator to get them all individually
+      */
+
+    default:
+      return state;
+  }
+};
+
 export class Provider extends React.Component {
   state = {
     bookArray: [
@@ -29,7 +48,9 @@ export class Provider extends React.Component {
         price: '19.99'
       }
     ],
-    currentBook: null
+    currentBook: null,
+
+    dispatch: action => this.setState(state => reducer(state, action))
   };
 
   render() {

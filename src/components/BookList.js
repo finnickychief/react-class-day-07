@@ -14,12 +14,6 @@ class BookList extends React.Component {
     };
   }
 
-  addBook(book) {
-    let newBookArray = this.state.bookArray;
-    newBookArray.push(book);
-    this.setState({ bookArray: newBookArray });
-  }
-
   switchRoute = route => {
     this.setState({ route: route });
   };
@@ -91,12 +85,7 @@ class BookList extends React.Component {
         break;
       }
       case 'addBook': {
-        element = (
-          <AddBookForm
-            switchRoute={this.switchRoute}
-            onSubmit={this.addBook.bind(this)}
-          />
-        );
+        element = <AddBookForm switchRoute={this.switchRoute} />;
         break;
       }
       case 'editBook': {
